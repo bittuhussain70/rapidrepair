@@ -1,0 +1,4 @@
+[Worker] Error calculating analytics: [Error: SQLITE_ERROR: no such table: bookings] {
+  errno: 1,
+  code: 'SQLITE_ERROR'
+}
