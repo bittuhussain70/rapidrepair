@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}RapidRepair.in{% endblock %}</title>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('index') }}" aria-label="RapidRepair home">
+            <span class="brand-mark">R</span>
+            <span>
+                <strong>rapidrepair.in</strong>
+                <small>AC service and home repairs</small>
+            </span>
+        </a>
+        <nav class="top-nav" aria-label="Main navigation">
+            <a href="{{ url_for('index') }}#services">Services</a>
+            <a href="{{ url_for('index') }}#book">Book</a>
+            <a href="{{ url_for('admin_bookings') }}">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <span>RapidRepair.in</span>
+        <span>AC Service | Repair | Installation | Appliance Care</span>
+        <span>Support: +91 98765 43210</span>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

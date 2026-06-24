@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Booking Confirmed - RapidRepair.in{% endblock %}
+
+{% block content %}
+<section class="confirmation">
+    <div class="confirmation-panel">
+        <p class="eyebrow">Booking confirmed</p>
+        <h1>Thanks, {{ booking.customer_name }}.</h1>
+        <p>Your {{ booking.service_name }} request is saved. RapidRepair will call {{ booking.phone }} for slot confirmation.</p>
+        <dl>
+            <div>
+                <dt>Booking ID</dt>
+                <dd>#RR{{ "%04d"|format(booking.id) }}</dd>
+            </div>
+            <div>
+                <dt>City</dt>
+                <dd>{{ booking.city }}</dd>
+            </div>
+            <div>
+                <dt>Slot</dt>
+                <dd>{{ booking.preferred_slot }}</dd>
+            </div>
+            <div>
+                <dt>Estimate</dt>
+                <dd>Rs. {{ booking.estimate_price }} | {{ booking.estimate_minutes }} min</dd>
+            </div>
+        </dl>
+        <div class="hero-actions">
+            <a class="button primary" href="{{ url_for('index') }}">Book another service</a>
+            <a class="button ghost" href="{{ url_for('admin_bookings') }}">View admin</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

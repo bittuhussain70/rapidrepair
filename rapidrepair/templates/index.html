@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block title %}RapidRepair.in - AC Service and Repair{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">Fast AC service in Patna, Muzaffarpur and nearby cities</p>
+        <h1>Book trusted AC service, repair and installation from RapidRepair.in</h1>
+        <p class="hero-text">
+            Verified technicians, clear starting prices, smart quote estimates, and same-day slots for cooling problems, gas refill, deep cleaning, and home appliance repairs.
+        </p>
+        <div class="hero-actions">
+            <a class="button primary" href="#book">Book AC Service</a>
+            <a class="button ghost" href="#services">View Prices</a>
+        </div>
+        <div class="trust-row" aria-label="Service highlights">
+            <span>4.8 rating</span>
+            <span>90 min emergency visit</span>
+            <span>{{ booking_count }} demo bookings</span>
+        </div>
+    </div>
+    <div class="hero-visual" aria-label="AC technician service image">
+        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1100&q=80" alt="Technician repairing an appliance">
+        <div class="quote-card">
+            <strong>Smart estimate</strong>
+            <span id="heroEstimate">Starts Rs. 499</span>
+        </div>
+    </div>
+</section>
+
+<section class="service-strip" aria-label="Popular services">
+    <span>Split AC</span>
+    <span>Window AC</span>
+    <span>Gas refill</span>
+    <span>Leak repair</span>
+    <span>Installation</span>
+    <span>Jet cleaning</span>
+</section>
+
+<section class="section-grid" id="services">
+    <div class="section-heading">
+        <p class="eyebrow">Services</p>
+        <h2>AC first, with more home repair categories ready</h2>
+    </div>
+    <div class="category-tabs" role="tablist" aria-label="Service categories">
+        <button class="tab active" data-filter="all" type="button">All</button>
+        {% for category in categories %}
+        <button class="tab" data-filter="{{ category }}" type="button">{{ category }}</button>
+        {% endfor %}
+    </div>
+    <div class="service-grid">
+        {% for service in services %}
+        <article class="service-card" data-category="{{ service.category }}">
+            <div class="card-topline">
+                <span>{{ service.badge }}</span>
+                <small>{{ service.duration }}</small>
+            </div>
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            <div class="price-row">
+                <strong>Rs. {{ service.price }}</strong>
+                <button class="select-service" data-service="{{ service.slug }}" type="button">Select</button>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="booking-band" id="book">
+    <div class="booking-copy">
+        <p class="eyebrow">Book now</p>
+        <h2>Get a technician visit estimate before submitting</h2>
+        <p>
+            The estimator learns from service type, urgency, AC tonnage, age, and distance. It gives a practical starting quote for your booking.
+        </p>
+        <div class="feature-list">
+            <span>Doorstep inspection</span>
+            <span>Transparent quote</span>
+            <span>Spare parts only after approval</span>
+        </div>
+    </div>
+
+    <form class="booking-form" action="{{ url_for('book') }}" method="post">
+        <div class="form-row">
+            <label>
+                Name
+                <input name="customer_name" required placeholder="Your name">
+            </label>
+            <label>
+                Phone
+                <input name="phone" required inputmode="tel" placeholder="98765 43210">
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                City
+                <select name="city" id="city">
+                    <option>Patna</option>
+                    <option>Muzaffarpur</option>
+                    <option>Gaya</option>
+                    <option>Darbhanga</option>
+                    <option>Other nearby city</option>
+                </select>
+            </label>
+            <label>
+                Preferred Slot
+                <select name="preferred_slot">
+                    <option>Today 10 AM - 1 PM</option>
+                    <option>Today 2 PM - 6 PM</option>
+                    <option>Tomorrow 10 AM - 1 PM</option>
+                    <option>Weekend</option>
+                </select>
+            </label>
+        </div>
+        <label>
+            Address
+            <textarea name="address" required rows="3" placeholder="House number, area, landmark"></textarea>
+        </label>
+        <div class="form-row">
+            <label>
+                Service
+                <select name="service" id="service">
+                    {% for service in services %}
+                    <option value="{{ service.slug }}">{{ service.name }} - Rs. {{ service.price }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                AC Type
+                <select name="ac_type" id="acType">
+                    <option value="split">Split</option>
+                    <option value="window">Window</option>
+                    <option value="inverter">Inverter</option>
+                    <option value="cassette">Cassette</option>
+                </select>
+            </label>
+        </div>
+        <div class="form-row compact">
+            <label>
+                Tonnage
+                <input id="tonnage" name="tonnage" type="number" min="0.8" max="4" step="0.1" value="1.5">
+            </label>
+            <label>
+                Unit Age
+                <input id="unitAge" name="unit_age" type="number" min="0" max="20" value="3">
+            </label>
+            <label>
+                Urgency
+                <select name="urgency" id="urgency">
+                    <option value="standard">Standard</option>
+                    <option value="today">Today</option>
+                    <option value="emergency">Emergency</option>
+                </select>
+            </label>
+        </div>
+        <input type="hidden" id="distanceKm" name="distance_km" value="4">
+        <aside class="estimate-panel" aria-live="polite">
+            <span>ML estimate</span>
+            <strong id="estimatePrice">Rs. 499</strong>
+            <small id="estimateMeta">45 min | 88% confidence</small>
+        </aside>
+        <button class="button primary wide" type="submit">Confirm Booking</button>
+    </form>
+</section>
+
+<section class="proof-section">
+    <div>
+        <p class="eyebrow">Why customers choose RapidRepair</p>
+        <h2>Built for high-intent local service bookings</h2>
+    </div>
+    <div class="proof-grid">
+        <article>
+            <strong>No hidden visit flow</strong>
+            <p>Customers see starting prices and a smarter estimate before submitting.</p>
+        </article>
+        <article>
+            <strong>Technician-ready data</strong>
+            <p>Each booking stores AC type, tonnage, age, urgency, address, and estimate.</p>
+        </article>
+        <article>
+            <strong>SQL backed admin</strong>
+            <p>Bookings are saved in SQLite and visible from the admin page.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Admin Bookings - RapidRepair.in{% endblock %}
+
+{% block content %}
+<section class="admin-section">
+    <div class="section-heading">
+        <p class="eyebrow">Admin</p>
+        <h1>Service bookings</h1>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>City</th>
+                    <th>Slot</th>
+                    <th>Estimate</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>#RR{{ "%04d"|format(booking.id) }}</td>
+                    <td>
+                        <strong>{{ booking.customer_name }}</strong>
+                        <span>{{ booking.phone }}</span>
+                    </td>
+                    <td>{{ booking.service_name }}</td>
+                    <td>{{ booking.city }}</td>
+                    <td>{{ booking.preferred_slot }}</td>
+                    <td>Rs. {{ booking.estimate_price }}</td>
+                    <td><span class="status">{{ booking.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="empty">No bookings yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
