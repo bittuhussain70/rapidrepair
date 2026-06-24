@@ -1,4 +1,21 @@
-[Worker] Error calculating analytics: [Error: SQLITE_ERROR: no such table: bookings] {
-  errno: 1,
-  code: 'SQLITE_ERROR'
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1948:16)
+    at listenInCluster (node:net:2005:12)
+    at Server.listen (node:net:2110:7)
+    at app.listen (/vercel/share/v0-project/rapidrepair/worker/node_modules/express/lib/application.js:635:24)
+    at startServer (file:///vercel/share/v0-project/rapidrepair/worker/src/index.js:252:7)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1984:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
 }
+
+Node.js v24.14.1

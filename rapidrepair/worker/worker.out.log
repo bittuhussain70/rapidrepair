@@ -3,6 +3,3 @@
 > node src/index.js
 
 [Worker] Database connected: /vercel/share/v0-project/rapidrepair/worker/rapidrepair.db
-[Worker] RapidRepair Worker running on port 3000
-[Worker] Database: /vercel/share/v0-project/rapidrepair/worker/rapidrepair.db
-[Worker] Health check: http://localhost:3000/api/worker/health
